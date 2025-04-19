@@ -17,13 +17,13 @@ export const ExperienceCard = ({ period, title, company, description, illustrati
     offset: ["start end", "center center"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 0.15]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 0.35]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
   const textY = useTransform(scrollYProgress, [0, 0.5], [20, 0]);
 
   return (
-    <div ref={cardRef} className="flex gap-6 items-start mb-16 relative">
+    <div ref={cardRef} className="flex gap-6 items-start mb-16 relative" style={{ position: 'relative' }}>
       <motion.div 
         className="absolute inset-0 -z-10"
         style={{ opacity, scale }}
@@ -31,7 +31,7 @@ export const ExperienceCard = ({ period, title, company, description, illustrati
         <img 
           src={illustration} 
           alt="" 
-          className="w-full h-full object-contain opacity-30"
+          className="w-full h-full object-contain opacity-50"
         />
       </motion.div>
       
