@@ -8,7 +8,7 @@ import { Contact } from "@/components/Contact";
 
 const Index = () => {
   return (
-    <div className="bg-background">
+    <div className="bg-background relative">
       <Navigation />
       <Hero />
       <About />

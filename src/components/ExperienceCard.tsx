@@ -14,30 +14,36 @@ export const ExperienceCard = ({ period, title, company, description, illustrati
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    offset: ["start end", "center center"]
+    offset: ["start end", "end center"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 0.35]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0, 0.5], [20, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 0.5]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.85, 1]);
+  const textOpacity = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
+  const textY = useTransform(scrollYProgress, [0.1, 0.5], [30, 0]);
 
   return (
-    <div ref={cardRef} className="flex gap-6 items-start mb-16 relative" style={{ position: 'relative' }}>
+    <div 
+      ref={cardRef} 
+      className="flex gap-6 items-start mb-20 relative" 
+      style={{ minHeight: '200px' }}
+    >
       <motion.div 
         className="absolute inset-0 -z-10"
         style={{ opacity, scale }}
+        initial={{ opacity: 0, scale: 0.85 }}
       >
         <img 
           src={illustration} 
           alt="" 
-          className="w-full h-full object-contain opacity-50"
+          className="w-full h-full object-contain opacity-40"
         />
       </motion.div>
       
       <motion.div 
         className="w-32 flex-shrink-0"
         style={{ opacity: textOpacity, y: textY }}
+        initial={{ opacity: 0, y: 30 }}
       >
         <span className="text-accent font-medium">{period}</span>
       </motion.div>
@@ -45,6 +51,7 @@ export const ExperienceCard = ({ period, title, company, description, illustrati
       <motion.div 
         className="flex-grow"
         style={{ opacity: textOpacity, y: textY }}
+        initial={{ opacity: 0, y: 30 }}
       >
         <h3 className="text-xl font-semibold text-primary">{title}</h3>
         <p className="text-secondary font-medium">{company}</p>

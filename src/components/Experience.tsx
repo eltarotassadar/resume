@@ -29,11 +29,11 @@ export const Experience = () => {
   return (
     <section 
       id="experience" 
-      className="min-h-screen flex items-center py-20 bg-gray-50"
+      className="min-h-screen flex items-center py-20 bg-gray-50 relative"
     >
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-primary mb-12">Experience</h2>
-        <div className="space-y-16">
+        <div className="space-y-24">
           {experiences.map((exp, index) => (
             <ExperienceCard key={index} {...exp} />
           ))}
