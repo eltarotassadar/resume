@@ -1,5 +1,5 @@
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface ExperienceCardProps {
@@ -14,29 +14,42 @@ export const ExperienceCard = ({ period, title, company, description, illustrati
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "center center"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0]);
-  const x = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [-100, 0, 0, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 0.15]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const textY = useTransform(scrollYProgress, [0, 0.5], [20, 0]);
 
   return (
-    <motion.div
-      ref={cardRef}
-      style={{ opacity, x }}
-      className="flex gap-6 items-start mb-16 relative"
-    >
-      <div className="w-32 flex-shrink-0">
+    <div ref={cardRef} className="flex gap-6 items-start mb-16 relative">
+      <motion.div 
+        className="absolute inset-0 -z-10"
+        style={{ opacity, scale }}
+      >
+        <img 
+          src={illustration} 
+          alt="" 
+          className="w-full h-full object-contain opacity-30"
+        />
+      </motion.div>
+      
+      <motion.div 
+        className="w-32 flex-shrink-0"
+        style={{ opacity: textOpacity, y: textY }}
+      >
         <span className="text-accent font-medium">{period}</span>
-      </div>
-      <div className="flex-grow">
+      </motion.div>
+      
+      <motion.div 
+        className="flex-grow"
+        style={{ opacity: textOpacity, y: textY }}
+      >
         <h3 className="text-xl font-semibold text-primary">{title}</h3>
         <p className="text-secondary font-medium">{company}</p>
         <p className="text-gray-600 mt-2">{description}</p>
-      </div>
-      <div className="absolute -z-10 right-0 opacity-20">
-        <img src={illustration} alt="" className="w-32 h-32 object-contain" />
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
