@@ -1,68 +1,38 @@
 
-import { useEffect, useRef } from 'react';
+import { ExperienceCard } from './ExperienceCard';
 
 const experiences = [
   {
     period: "2020 - Present",
     title: "Senior Software Engineer",
     company: "Tech Corp",
-    description: "Leading development of enterprise web applications"
+    description: "Leading development of enterprise web applications",
+    illustration: "https://cdn-icons-png.flaticon.com/512/2920/2920277.png" // Programming illustration
   },
   {
     period: "2018 - 2020",
     title: "Full Stack Developer",
     company: "Digital Solutions Inc",
-    description: "Developed and maintained multiple client projects"
+    description: "Developed and maintained multiple client projects",
+    illustration: "https://cdn-icons-png.flaticon.com/512/2091/2091665.png" // Data visualization illustration
   },
   {
     period: "2016 - 2018",
     title: "Junior Developer",
     company: "StartUp Co",
-    description: "Built and deployed web applications using modern technologies"
+    description: "Built and deployed web applications using modern technologies",
+    illustration: "https://cdn-icons-png.flaticon.com/512/1067/1067567.png" // Rocket/startup illustration
   }
 ];
 
 export const Experience = () => {
-  const timelineRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const items = timelineRef.current?.children;
-    if (items) {
-      Array.from(items).forEach((item) => {
-        observer.observe(item);
-      });
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section id="experience" className="min-h-screen flex items-center py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-primary mb-12">Experience</h2>
-        <div ref={timelineRef} className="space-y-12">
+        <div className="space-y-8">
           {experiences.map((exp, index) => (
-            <div key={index} className="opacity-0 flex gap-6 items-start">
-              <div className="w-32 flex-shrink-0">
-                <span className="text-accent font-medium">{exp.period}</span>
-              </div>
-              <div className="flex-grow">
-                <h3 className="text-xl font-semibold text-primary">{exp.title}</h3>
-                <p className="text-secondary font-medium">{exp.company}</p>
-                <p className="text-gray-600 mt-2">{exp.description}</p>
-              </div>
-            </div>
+            <ExperienceCard key={index} {...exp} />
           ))}
         </div>
       </div>
